@@ -1,0 +1,59 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "jobs": "Emplois",
+    "jobDetails": "Détails de l'emploi",
+    "login": "Connexion",
+    "register": "Inscription"
+  },
+  "hero": {
+    "welcome": "Trouvez votre prochain emploi",
+    "title": "Découvrez les meilleures opportunités professionnelles",
+    "searchPlaceholder": "Que recherchez-vous ?",
+    "locationPlaceholder": "Où ?",
+    "findButton": "Rechercher"
+  },
+  "categories": {
+    "title": "Parcourir par catégorie",
+    "technology": "Technologie",
+    "marketing": "Marketing",
+    "design": "Design",
+    "sales": "Ventes",
+    "finance": "Finance",
+    "healthcare": "Santé",
+    "jobsAvailable": "offres disponibles",
+    "browseAll": "Voir toutes les offres"
+  },
+  "filters": {
+    "title": "Filtres",
+    "categories": "Catégories",
+    "jobType": "Type d'emploi",
+    "types": {
+      "fullTime": "Temps plein",
+      "partTime": "Temps partiel",
+      "remote": "Télétravail",
+      "contract": "Freelance"
+    },
+    "experience": "Niveau d'expérience",
+    "levels": {
+      "entry": "Débutant",
+      "mid": "Intermédiaire",
+      "senior": "Senior",
+      "lead": "Lead"
+    },
+    "salary": "Fourchette de salaire"
+  },
+  "footer": {
+    "jobSeekers": "Pour les candidats",
+    "browseJobs": "Parcourir les offres",
+    "remoteJobs": "Emplois en télétravail",
+    "featuredJobs": "Offres en vedette",
+    "resources": "Ressources",
+    "blog": "Blog",
+    "careerAdvice": "Conseils carrière",
+    "helpCenter": "Centre d'aide",
+    "contact": "Contact",
+    "rights": "Tous droits réservés",
+    "description": "Trouvez l'emploi de vos rêves dans les startups les plus passionnantes du monde."
+  }
+}

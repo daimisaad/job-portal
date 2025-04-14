@@ -1,0 +1,60 @@
+{
+  "nav": {
+    "home": "الرئيسية",
+    "jobs": "الوظائف",
+    "jobDetails": "تفاصيل الوظيفة",
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب"
+  },
+  "hero": {
+    "welcome": "ابحث عن وظيفتك القادمة",
+    "title": "اكتشف أفضل الفرص المهنية",
+    "searchPlaceholder": "ما الذي تبحث عنه؟",
+    "locationPlaceholder": "أين؟",
+    "findButton": "بحث"
+  },
+  "categories": {
+    "title": "تصفح حسب الفئة",
+    "technology": "التكنولوجيا",
+    "marketing": "التسويق",
+    "design": "التصميم",
+    "sales": "المبيعات",
+    "finance": "المالية",
+    "healthcare": "الرعاية الصحية",
+    "jobsAvailable": "وظيفة متاحة",
+    "browseAll": "عرض جميع الوظائف"
+  },
+  "filters": {
+    "title": "التصفية",
+    "categories": "الفئات",
+    "jobType": "نوع الوظيفة",
+    "types": {
+      "fullTime": "دوام كامل",
+      "partTime": "دوام جزئي",
+      "remote": "عن بعد",
+      "contract": "عقد حر"
+    },
+    "experience": "مستوى الخبرة",
+    "levels": {
+      "entry": "مبتدئ",
+      "mid": "متوسط",
+      "senior": "خبير",
+      "lead": "قيادي"
+    },
+    "salary": "نطاق الراتب"
+  },
+  "footer": {
+    "jobSeekers": "للباحثين عن عمل",
+    "browseJobs": "تصفح الوظائف",
+    "remoteJobs": "وظائف عن بعد",
+    "featuredJobs": "وظائف مميزة",
+    "resources": "الموارد",
+    "blog": "المدونة",
+    "careerAdvice": "نصائح مهنية",
+    "helpCenter": "مركز المساعدة",
+    "contact": "اتصل بنا",
+    "rights": "جميع الحقوق محفوظة",
+    "description": "ابحث عن وظيفة أحلامك في أكثر الشركات الناشئة إثارة حول العالم."
+
+  }
+}
