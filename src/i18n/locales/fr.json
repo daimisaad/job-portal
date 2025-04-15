@@ -55,5 +55,10 @@
     "contact": "Contact",
     "rights": "Tous droits réservés",
     "description": "Trouvez l'emploi de vos rêves dans les startups les plus passionnantes du monde."
+  },
+  "Pagination": {
+    "Previous": "Précédente",
+    "Next" : "suivante"
+    
   }
 }

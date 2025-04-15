@@ -3,8 +3,7 @@ import { BriefcaseIcon, MapPinIcon, CurrencyDollarIcon, ClockIcon } from '@heroi
 
 function JobDetails() {
   const { id } = useParams();
-
-  // Mock job data
+ 
   const job = {
     id: 1,
     title: 'Senior Frontend Developer',
