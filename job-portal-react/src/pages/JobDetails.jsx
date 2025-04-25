@@ -1,10 +1,12 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { BriefcaseIcon, MapPinIcon, CurrencyDollarIcon, ClockIcon } from '@heroicons/react/24/outline';
+import ApplicationModal from '../components/ApplicationModal';
 
 function JobDetails() {
   const { id } = useParams();
-
-  // Mock job data
+  const [isModalOpen, setIsModalOpen] = useState(false);
+ 
   const job = {
     id: 1,
     title: 'Senior Frontend Developer',
@@ -69,7 +71,7 @@ Benefits:
             </div>
             <button
               className="bg-primary text-white px-8 py-3 rounded-lg hover:bg-primary/90 transition"
-              onClick={() => alert('Application feature coming soon!')}
+              onClick={() => setIsModalOpen(true)}
             >
               Apply Now
             </button>
@@ -110,8 +112,15 @@ Benefits:
           </div>
         </div>
       </div>
+
+      <ApplicationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        jobTitle={job.title}
+      />
     </div>
   );
 }
+
 
 export default JobDetails;

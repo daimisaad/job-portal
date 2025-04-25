@@ -43,6 +43,20 @@
     },
     "salary": "Fourchette de salaire"
   },
+  "application": {
+    "title": "Postuler pour",
+    "firstName": "Prénom",
+    "lastName": "Nom de famille",
+    "email": "Adresse e-mail",
+    "phone": "Numéro de téléphone",
+    "location": "Ville de résidence",
+    "age": "Âge",
+    "photo": "Photo de profil",
+    "resume": "CV (PDF ou Word)",
+    "submit": "Envoyer la candidature",
+    "cancel": "Fermer",
+    "successMessage": "Votre candidature a été envoyée avec succès. Nous avons bien reçu votre demande et nous vous contacterons dans les plus brefs délais."
+  },
   "footer": {
     "jobSeekers": "Pour les candidats",
     "browseJobs": "Parcourir les offres",
@@ -55,5 +69,10 @@
     "contact": "Contact",
     "rights": "Tous droits réservés",
     "description": "Trouvez l'emploi de vos rêves dans les startups les plus passionnantes du monde."
+  },
+  "Pagination": {
+    "Previous": "Précédente",
+    "Next" : "suivante"
+    
   }
 }

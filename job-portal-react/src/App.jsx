@@ -7,6 +7,8 @@ import JobDetails from "./pages/JobDetails";
 import Register from "./components/register/Register.jsx";
 import Login from "./components/Sign/Sign.jsx";
 import JobPostingForm from "./components/JobPost.jsx";
+import ScrollToTop from "./components/ScrollToTop";
+
 
 function App() {
   return (
@@ -16,9 +18,10 @@ function App() {
         v7_relativeSplatPath: true,
       }}
     >
+      <ScrollToTop />
       <div className="min-h-screen bg-gray-50 flex flex-col">
         <Navbar />
-        <main className="flex-grow">
+        <main className="flex-grow pt-16">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/jobs" element={<Jobs />} />

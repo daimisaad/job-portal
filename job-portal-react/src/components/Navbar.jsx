@@ -35,15 +35,15 @@ function Navbar() {
   },[who])
 
   return (
-    <nav className="bg-white shadow-lg" dir={isRTL ? "rtl" : "ltr"}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="fixed z-30 w-full bg-white shadow-lg" dir={isRTL ? "rtl" : "ltr"}>
+      <div className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Left Section: Logo + Language Toggle */}
-          <div className="flex items-center space-x-4">
+          {/*Logo + Language Toggle */}
+          <div className=" flex items-center gap-3 ">
             <Link
               to="/"
               className={`text-xl font-bold text-[#5f48f1] ${
-                isRTL ? "font-[Noto Naskh Arabic]" : "font-[Poppins]"
+                isRTL ? "font-[Poppins]" : "font-[Poppins]"
               }`}
             >
               JobPortal
@@ -56,27 +56,27 @@ function Navbar() {
             </button>
           </div>
 
-          {/* Center Section: Navigation Links */}
+          {/* Navigation Links */}
           <div className="hidden md:flex items-center justify-center flex-1">
             <div className="flex items-center gap-x-8">
               <Link
                 to="/"
-                className="text-gray-700 hover:text-[#5f48f1] transition-colors"
+                className="font-semibold text-gray-700 hover:text-[#5f48f1] transition-colors"
               >
                 {t("nav.home")}
               </Link>
               <Link
                 to="/jobs"
-                className="text-gray-700 hover:text-[#5f48f1] transition-colors"
+                className="font-semibold text-gray-700 hover:text-[#5f48f1] transition-colors"
               >
                 {t("nav.jobs")}
               </Link>
-              <Link
+              {/* <Link
                 to="/jobs/1"
                 className="text-gray-700 hover:text-[#5f48f1] transition-colors"
               >
                 {t("nav.jobDetails")}
-              </Link>
+              </Link> */}
             </div>
           </div>
 
@@ -102,7 +102,7 @@ function Navbar() {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile  */}
           <button
             className="md:hidden p-2 text-gray-700 hover:text-[#5f48f1]"
             aria-label="Toggle menu"
@@ -143,12 +143,12 @@ function Navbar() {
             >
               {t("nav.jobs")}
             </Link>
-            <Link
+            {/* <Link
               to="/jobs/1"
               className="block px-3 py-2 text-gray-700 hover:text-[#5f48f1] transition-colors"
             >
               {t("nav.jobDetails")}
-            </Link>
+            </Link> */}
             {who ? (
               returnOnDepenceWhosIsConnected()
             ) : (

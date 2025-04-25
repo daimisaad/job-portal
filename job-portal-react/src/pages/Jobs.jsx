@@ -22,7 +22,7 @@ function Jobs() {
       title: 'Senior Frontend Developer',
       company: 'TechCorp',
       location: 'San Francisco, CA',
-      salary: '$120k - $150k',
+      salary: '12000DH - 15000DH',
       type: 'Full Time',
       category: 'technology',
       experience: 'Senior Level',
@@ -34,7 +34,7 @@ function Jobs() {
       title: 'Product Designer',
       company: 'DesignHub',
       location: 'Remote',
-      salary: '$90k - $120k',
+      salary: '9000DH - 12000DH',
       type: 'Full Time',
       category: 'design',
       experience: 'Mid Level',
@@ -87,7 +87,7 @@ function Jobs() {
             {/* Categories */}
             <div className="mb-6">
               <h3 className="font-medium mb-3">{t('categories.title')}</h3>
-              <div className="space-y-2">
+              <div className="space-y-2 flex flex-col ">
               {[
                   { key: 'technology', label: t('categories.technology') },
                   { key: 'design', label: t('categories.design') },
@@ -96,7 +96,7 @@ function Jobs() {
                   { key: 'finance', label: t('categories.finance') },
                   { key: 'healthcare', label: t('categories.healthcare') },
                 ].map(({ key, label }) => (
-                  <label key={key} className="flex items-center">
+                  <label key={key} className="flex items-center gap-2 ">
                     <input
                       type="checkbox"
                       checked={selectedFilters.category === key}
@@ -122,7 +122,7 @@ function Jobs() {
                   {key:'remote', label: t('filters.types.remote')}, 
                   {key:'contract', label: t('filters.types.contract')}, 
                 ].map(({key, label}) => (
-                  <label key={key} className="flex items-center">
+                  <label key={key} className="flex items-center gap-2">
                     <input
                       type="checkbox"
                       checked={selectedFilters.filters === key}
@@ -139,7 +139,7 @@ function Jobs() {
             </div>
 
             {/* Experience Level */}
-            <div className="mb-6">
+            <div className="mb-6 ">
               <h3 className="font-medium mb-3">{t('filters.experience')}</h3>
               <div className="space-y-2">
               {[
@@ -148,7 +148,7 @@ function Jobs() {
       { key: 'Senior Level', label: t('filters.levels.senior') },
       { key: 'Lead', label: t('filters.levels.lead') },
     ].map(({ key, label }) => (
-      <label key={key} className="flex items-center">
+      <label key={key} className="flex items-center gap-2">
         <input
           type="checkbox"
           checked={selectedFilters.experience === key}
@@ -230,11 +230,11 @@ function Jobs() {
           {/* Pagination */}
           <div className="mt-8 flex justify-center">
             <nav className="flex items-center gap-2">
-              <button className="px-4 py-2 border rounded-lg hover:bg-gray-50 transition duration-300">Previous</button>
+              <button className="px-4 py-2 border rounded-lg hover:bg-gray-50 transition duration-300">{t('Pagination.Previous')}</button>
               <button className="px-4 py-2 bg-primary text-white rounded-lg">1</button>
               <button className="px-4 py-2 border rounded-lg hover:bg-gray-50 transition duration-300">2</button>
               <button className="px-4 py-2 border rounded-lg hover:bg-gray-50 transition duration-300">3</button>
-              <button className="px-4 py-2 border rounded-lg hover:bg-gray-50 transition duration-300">Next</button>
+              <button className="px-4 py-2 border rounded-lg hover:bg-gray-50 transition duration-300">{t('Pagination.Next')}</button>
             </nav>
           </div>
         </div>

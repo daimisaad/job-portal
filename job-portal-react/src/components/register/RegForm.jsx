@@ -5,7 +5,7 @@ import HandleError from '../RepeatedElements/HandleError'
 export default function RegForm({errors={},setErrors=()=>{}}) {
   
   return (
-    <form>
+    <form> 
       <div className='grid lg:grid-cols-2 md:grid-cols-2 lg:grid-rows-2 md:grid-rows-2 gap-2'>
         <div className='grid'>
         <Input name='first_name'/>
