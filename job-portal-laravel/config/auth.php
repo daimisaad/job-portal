@@ -64,20 +64,18 @@ return [
     */
 
     'providers' => [
-        'candidates' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\Candidate::class),
-        ],
-        'employers' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\Employer::class),
-        ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+    'candidates' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Candidate::class,
     ],
+
+    
+    'employers' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Employer::class,
+    ],
+],
 
     /*
     |--------------------------------------------------------------------------

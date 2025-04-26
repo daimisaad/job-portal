@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employer;
+use App\Models\EmployerToken;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class EmployerController extends Controller
 {
     public function register(Request $request)
     {
         $validated = $request->validate([
-            'company_name' => 'required|string',
+            'company_name' => 'required|string|unique:employers',
             'phone' => 'required|integer|unique:employers|min:10',
             'email' => 'required|email|unique:employers',
             'password' => 'required|string|confirmed',
@@ -23,7 +25,12 @@ class EmployerController extends Controller
             'password' => $validated['password'],
         ]);
 
-        $token = $employer->createToken('EmployerAccess')->plainTextToken;
+        $token = Str::random(60);
+
+        EmployerToken::create([
+            'candidate_id'=>$employer->id,
+            'token'=> $token
+        ]);
 
         return response()->json([
             'employer' => $employer,
@@ -39,7 +46,12 @@ class EmployerController extends Controller
 
         $employer = Employer::where('email', $validated['email'])->first();
 
-        $token = $employer->createToken('EmployerAccess')->plainTextToken;
+        $token = Str::random(60);
+
+        EmployerToken::create([
+            'candidate_id'=>$employer->id,
+            'token'=> $token
+        ]);
 
         return response()->json([
             'employer' => $employer,
@@ -47,9 +59,12 @@ class EmployerController extends Controller
         ]);
     }
     public function logout(Request $request)
-    {
+{
+    if ($request->user()) {
         $request->user()->currentAccessToken()->delete();
-
         return response()->json(['message' => 'Logged out successfully']);
     }
+
+    return response()->json(['message' => 'User not authenticated'], 401);
+}
 }

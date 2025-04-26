@@ -2,9 +2,9 @@ import { useState } from 'react';
 
 export default function JobPostingForm() {
   const [formType, setFormType] = useState('basic');
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     title: '',
-    company: '',
     location: '',
     minSalary: '',
     maxSalary: '',
@@ -22,6 +22,11 @@ export default function JobPostingForm() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+    
+    // Clear error for this field when user changes it
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
   };
 
   const handleSkillAdd = () => {
@@ -75,6 +80,34 @@ export default function JobPostingForm() {
     }));
   };
 
+  const validateBasicForm = () => {
+    const newErrors = {};
+    
+    if (!formData.title.trim()) {
+      newErrors.title = 'Le titre du poste est requis';
+    }
+    
+    if (!formData.location.trim()) {
+      newErrors.location = 'La localisation est requise';
+    }
+    
+    if (formData.minSalary && formData.maxSalary && 
+        Number(formData.minSalary) >= Number(formData.maxSalary)) {
+      newErrors.minSalary = 'Le salaire minimum doit être inférieur au salaire maximum';
+      newErrors.maxSalary = 'Le salaire maximum doit être supérieur au salaire minimum';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleContinue = () => {
+    const isValid = validateBasicForm();
+    if (isValid) {
+      setFormType('details');
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Job posting submitted:', formData);
@@ -100,12 +133,13 @@ export default function JobPostingForm() {
               Informations de base
             </button>
             <button
-              onClick={() => setFormType('details')}
+              type="button"
               className={`flex-1 py-2 px-4 rounded-md text-sm transition-colors ${
                 formType === 'details' 
                   ? 'bg-indigo-500 text-white shadow-md' 
                   : 'text-gray-700 hover:bg-gray-200'
               }`}
+              disabled={formType === 'basic'}
             >
               Détails du poste
             </button>
@@ -117,45 +151,35 @@ export default function JobPostingForm() {
           {formType === 'basic' && (
             <div>
               <div className="mb-4">
-                <label htmlFor="title" className="block text-gray-700 mb-2">Titre du poste</label>
+                <label htmlFor="title" className="block text-gray-700 mb-2">
+                  Titre du poste <span className="text-red-500">*</span>
+                </label>
                 <input
                   type="text"
                   id="title"
                   name="title"
                   value={formData.title}
                   onChange={handleChange}
-                  className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className={`w-full p-3 border ${errors.title ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500`}
                   placeholder="ex: Développeur Frontend Senior"
-                  required
                 />
+                {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
               </div>
               
               <div className="mb-4">
-                <label htmlFor="company" className="block text-gray-700 mb-2">Nom de l'entreprise</label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleChange}
-                  className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  placeholder="ex: TechCorp"
-                  required
-                />
-              </div>
-              
-              <div className="mb-4">
-                <label htmlFor="location" className="block text-gray-700 mb-2">Localisation</label>
+                <label htmlFor="location" className="block text-gray-700 mb-2">
+                  Localisation <span className="text-red-500">*</span>
+                </label>
                 <input
                   type="text"
                   id="location"
                   name="location"
                   value={formData.location}
                   onChange={handleChange}
-                  className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className={`w-full p-3 border ${errors.location ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500`}
                   placeholder="ex: Paris, France"
-                  required
                 />
+                {errors.location && <p className="text-red-500 text-sm mt-1">{errors.location}</p>}
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -167,9 +191,10 @@ export default function JobPostingForm() {
                     name="minSalary"
                     value={formData.minSalary}
                     onChange={handleChange}
-                    className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className={`w-full p-3 border ${errors.minSalary ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500`}
                     placeholder="ex: 40000"
                   />
+                  {errors.minSalary && <p className="text-red-500 text-sm mt-1">{errors.minSalary}</p>}
                 </div>
                 
                 <div>
@@ -180,22 +205,24 @@ export default function JobPostingForm() {
                     name="maxSalary"
                     value={formData.maxSalary} 
                     onChange={handleChange}
-                    className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className={`w-full p-3 border ${errors.maxSalary ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500`}
                     placeholder="ex: 60000"
                   />
+                  {errors.maxSalary && <p className="text-red-500 text-sm mt-1">{errors.maxSalary}</p>}
                 </div>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div>
-                  <label htmlFor="jobType" className="block text-gray-700 mb-2">Type de poste</label>
+                  <label htmlFor="jobType" className="block text-gray-700 mb-2">
+                    Type de poste <span className="text-red-500">*</span>
+                  </label>
                   <select
                     id="jobType"
                     name="jobType"
                     value={formData.jobType}
                     onChange={handleChange}
                     className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    required
                   >
                     <option value="Full Time">Temps plein</option>
                     <option value="Part Time">Temps partiel</option>
@@ -206,14 +233,15 @@ export default function JobPostingForm() {
                 </div>
                 
                 <div>
-                  <label htmlFor="category" className="block text-gray-700 mb-2">Catégorie</label>
+                  <label htmlFor="category" className="block text-gray-700 mb-2">
+                    Catégorie <span className="text-red-500">*</span>
+                  </label>
                   <select
                     id="category"
                     name="category"
                     value={formData.category}
                     onChange={handleChange}
                     className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    required
                   >
                     <option value="Technology">Technologie</option>
                     <option value="Design">Design</option>
@@ -227,11 +255,15 @@ export default function JobPostingForm() {
               
               <button
                 type="button"
-                onClick={() => setFormType('details')}
+                onClick={handleContinue}
                 className="w-full p-3 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 transition-colors"
               >
                 Continuer
               </button>
+              
+              <p className="text-sm text-gray-500 mt-2 text-center">
+                <span className="text-red-500">*</span> Champs obligatoires
+              </p>
             </div>
           )}
           
@@ -239,7 +271,9 @@ export default function JobPostingForm() {
           {formType === 'details' && (
             <div>
               <div className="mb-4">
-                <label htmlFor="description" className="block text-gray-700 mb-2">Description du poste</label>
+                <label htmlFor="description" className="block text-gray-700 mb-2">
+                  Description du poste <span className="text-red-500">*</span>
+                </label>
                 <textarea
                   id="description"
                   name="description"

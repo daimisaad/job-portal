@@ -10,7 +10,7 @@ function Navbar() {
   const isRTL = i18n.language === "ar";
   const [isShowed, setIsShowed] = useState(false);
   const who = useSelector(TAKE_WHO);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const toggleLanguage = () => {
     const newLang = i18n.language === "fr" ? "ar" : "fr";
@@ -27,15 +27,17 @@ function Navbar() {
     return false;
   };
 
-
-  useEffect(()=>{
-    if(!who){
-      navigate('/')
+  useEffect(() => {
+    if (!who) {
+      navigate("/");
     }
-  },[who])
+  }, [who]);
 
   return (
-    <nav className="fixed z-30 w-full bg-white shadow-lg" dir={isRTL ? "rtl" : "ltr"}>
+    <nav
+      className="fixed z-30 w-full bg-white shadow-lg"
+      dir={isRTL ? "rtl" : "ltr"}
+    >
       <div className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/*Logo + Language Toggle */}
@@ -126,11 +128,15 @@ function Navbar() {
 
         {/* Mobile Menu */}
         <div
-          className={`md:hidden  transition-all duration-500 ${
+          className={`md:hidden transition-all duration-500 ${
             isShowed ? "max-h-96" : "max-h-0 overflow-hidden"
           }`}
         >
-          <div className="grid px-2 pt-2 pb-3 space-y-1">
+          <div
+            className={`grid px-2 pt-2 pb-3 space-y-1 transition-all duration-300 ${
+              isShowed ? "opacity-100" : "opacity-0"
+            }`}
+          >
             <Link
               to="/"
               className="block px-3 py-2 text-gray-700 hover:text-[#5f48f1] transition-colors"
@@ -153,19 +159,18 @@ function Navbar() {
               returnOnDepenceWhosIsConnected()
             ) : (
               <>
-            <Link
-              to="/login"
-              className="block px-3 py-2 text-gray-700 hover:text-[#5f48f1] transition-colors"
-            >
-              {t("nav.login")}
-            </Link>
-            <Link
-              to="/register"
-              className="block px-3 py-2 text-gray-700 hover:text-[#5f48f1] transition-colors"
-            >
-              {t("nav.register")}
-            </Link>
-                
+                <Link
+                  to="/login"
+                  className="block px-3 py-2 text-gray-700 hover:text-[#5f48f1] transition-colors"
+                >
+                  {t("nav.login")}
+                </Link>
+                <Link
+                  to="/register"
+                  className="block px-3 py-2 text-gray-700 hover:text-[#5f48f1] transition-colors"
+                >
+                  {t("nav.register")}
+                </Link>
               </>
             )}
           </div>
@@ -194,7 +199,7 @@ function WhenCandidateConnect() {
 function WhenEmployerConnect() {
   return (
     <>
-      <ProfileDropdown  type="employer"/>
+      <ProfileDropdown type="employer" />
 
       <Link
         to="/postjob"

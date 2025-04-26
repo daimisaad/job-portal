@@ -1,10 +1,14 @@
 import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getSanctumCsrf, logout } from "../../Api/Apiconditions";
 import { getCookie } from "../../Api/conditions";
+import { useDispatch } from "react-redux";
+import { disconnected } from "../../Redux/Slices/WhoConnected";
 
 export default function ProfileDropdown({ type = "candidate" }) {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const dropdownRef = useRef(null);
   // Close dropdown if clicked outside
   useEffect(() => {
@@ -18,8 +22,16 @@ export default function ProfileDropdown({ type = "candidate" }) {
   }, []);
 
   const handleLogOut = async () => {
-    await getSanctumCsrf();
-    await logout(type);
+    try {
+      await getSanctumCsrf();
+      await logout(type);
+      dispatch(disconnected())
+      setTimeout(()=>{
+        navigate('/login')
+      },10)
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
   };
   return (
     <button

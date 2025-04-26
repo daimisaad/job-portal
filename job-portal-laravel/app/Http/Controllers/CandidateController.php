@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Candidate;
+use App\Models\CandidateToken;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class CandidateController extends Controller
 {
@@ -26,7 +28,12 @@ class CandidateController extends Controller
             'password'=>$validated['password'],
         ]);
 
-        $token = $candidate->createToken('CandidateAccess')->plainTextToken;
+        $token = Str::random(60);
+
+        CandidateToken::create([
+            'candidate_id'=>$candidate->id,
+            'token'=> $token
+        ]);
 
         return response()->json([
             'candidate'=> $candidate,
@@ -41,7 +48,13 @@ class CandidateController extends Controller
 
         $candidate = Candidate::where('email',$validated['email'])->first();
 
-        $token = $candidate->createToken('CandidateAccess')->plainTextToken;
+
+        $token = Str::random(60);
+
+        CandidateToken::create([
+            'candidate_id'=>$candidate->id,
+            'token'=> $token
+        ]);
 
         return response()->json([
             'employer'=> $candidate,
@@ -52,21 +65,16 @@ class CandidateController extends Controller
 {
     $authHeader = $request->header('Authorization');
 
-    if ($authHeader && str_starts_with($authHeader, 'Bearer ')) {
-        $tokenString = substr($authHeader, 7); // example: "1|T1o4ASdf..."
 
-        // Split ID and raw token
-        [$id, $plainToken] = explode('|', $tokenString, 2);
-
-        // Find token row by ID
-        $record = DB::table('personal_access_tokens')->where('id', $id)->first();
-
-        if ($record && Hash::check($plainToken, $record->token)) {
-            DB::table('personal_access_tokens')->where('id', $id)->delete();
-            return response()->json(['message' => 'Logged out successfully']);
+        if (!$authHeader || !str_starts_with($authHeader, 'Bearer ')) {
+            return response()->json(['message' => 'Unauthorized'], 401);
         }
-    }
 
-    return response()->json(['message' => 'Invalid token'], 401);
+
+        $token = substr($authHeader, 7);
+
+        CandidateToken::where('token',$token)->delete();
+
+        return response()->json(['success'=> 'Log Out Has Successfuly'],200);
 }
 }

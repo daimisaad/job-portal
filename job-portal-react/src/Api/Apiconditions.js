@@ -26,7 +26,7 @@ async function login(data, type = "candidate") {
 async function logout(type = "candidate") {
   const token = localStorage?.getItem("ACCESS_TOKEN") || null;
   if (!token) return;
-  await axiosClient.post(`/${type}/logout`, {
+  await axiosClient.post(`/${type}/logout`,{}, {
     headers: {
       "X-XSRF-TOKEN": getCookie("XSRF-TOKEN"),
       Authorization: `Bearer ${token}`,
@@ -35,7 +35,6 @@ async function logout(type = "candidate") {
   });
   console.log(getCookie("XSRF-TOKEN"));
   localStorage.removeItem("ACCESS_TOKEN");
-  localStorage.removeItem("who");
   try {
     console.log("Has Logout");
   } catch (err) {
