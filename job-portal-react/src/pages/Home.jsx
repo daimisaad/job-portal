@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { MagnifyingGlassIcon, MapPinIcon } from '@heroicons/react/24/outline';
 import { TechnologyIcon, MarketingIcon, DesignIcon, SalesIcon, FinanceIcon, HealthcareIcon } from '../components/icons';
+import CompanyLogosSlider from "../components/CompanyLogoSlider";
 
 function Home() {
   const navigate = useNavigate();
@@ -79,6 +80,7 @@ function Home() {
     </div>
 
     {/* Categories Section */}
+    <CompanyLogosSlider />
     <div className="bg-[#F3F4F6] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
       <h2 className="text-3xl font-bold text-center mb-12">
         {t("categories.title")}

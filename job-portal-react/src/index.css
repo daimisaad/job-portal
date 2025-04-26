@@ -18,7 +18,7 @@ body {
 
 /* RTL Support */
 [dir="rtl"] {
-  font-family: 'Noto Naskh Arabic', 'Poppins', sans-serif;
+  font-family: 'Poppins', 'Noto Naskh Arabic',  sans-serif;
 }
 
 [dir="rtl"] .border-r {
