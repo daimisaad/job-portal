@@ -5,7 +5,11 @@ import { getCookie } from "../../Api/conditions";
 import { useDispatch } from "react-redux";
 import { disconnected } from "../../Redux/Slices/WhoConnected";
 
-export default function ProfileDropdown({ type = "candidate" }) {
+export default function ProfileDropdown({
+  type = "candidate",
+  name = "test",
+  src,
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,10 +29,10 @@ export default function ProfileDropdown({ type = "candidate" }) {
     try {
       await getSanctumCsrf();
       await logout(type);
-      dispatch(disconnected())
-      setTimeout(()=>{
-        navigate('/login')
-      },10)
+      dispatch(disconnected());
+      setTimeout(() => {
+        navigate("/login");
+      }, 10);
     } catch (err) {
       console.error("Logout failed:", err);
     }
@@ -40,17 +44,19 @@ export default function ProfileDropdown({ type = "candidate" }) {
       ref={dropdownRef}
     >
       <img
-        src="https://i.pravatar.cc/3"
-        alt="profile"
-        className="w-8 h-8 rounded-full"
+        src={`http://localhost:8000/storage${src}`}
+        className="w-8 h-8 object-cover bg-cover rounded-full"
       />
-      <span className="font-medium">John Doe</span>
+      <span className="font-medium">{name}</span>
 
       {isOpen && (
         <div className="absolute right-4  top-[2%] z-50 lg:right-0 lg:top-[100%]  md:right-0 md:top-[100%]  mt-2 w-48  bg-white rounded-xl shadow-lg ">
           <ul className="py-2">
             <li>
-              <Link to="/profile" className="block text-left px-4 py-2 hover:bg-gray-100">
+              <Link
+                to="/profile"
+                className="block text-left px-4 py-2 hover:bg-gray-100"
+              >
                 Profile
               </Link>
             </li>

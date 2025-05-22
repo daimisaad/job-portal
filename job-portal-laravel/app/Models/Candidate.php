@@ -15,6 +15,7 @@ class Candidate extends Model
             'phone',
             'email',
             'password',
+            'profile_image'
     ];
     protected $hidden = [ 'password'];
     protected $casts = [

@@ -45,6 +45,7 @@ class CandidateController extends Controller
             'email'=>'required|email',
             'password'=>'required|string',
         ]);
+        
 
         $candidate = Candidate::where('email',$validated['email'])->first();
 
@@ -76,5 +77,11 @@ class CandidateController extends Controller
         CandidateToken::where('token',$token)->delete();
 
         return response()->json(['success'=> 'Log Out Has Successfuly'],200);
+}
+public function getCandidate(Request $request){
+    $id = CandidateToken::where('token',$request->token)->first()['candidate_id'];
+    $candidate = Candidate::where('id',$id)->first();
+
+    return response()->json(['candidate'=>$candidate]);
 }
 }

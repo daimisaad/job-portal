@@ -28,7 +28,7 @@ class EmployerController extends Controller
         $token = Str::random(60);
 
         EmployerToken::create([
-            'candidate_id'=>$employer->id,
+            'employer_id'=>$employer->id,
             'token'=> $token
         ]);
 
@@ -49,7 +49,7 @@ class EmployerController extends Controller
         $token = Str::random(60);
 
         EmployerToken::create([
-            'candidate_id'=>$employer->id,
+            'employer_id'=>$employer->id,
             'token'=> $token
         ]);
 
@@ -60,11 +60,25 @@ class EmployerController extends Controller
     }
     public function logout(Request $request)
 {
-    if ($request->user()) {
-        $request->user()->currentAccessToken()->delete();
-        return response()->json(['message' => 'Logged out successfully']);
-    }
+    $authHeader = $request->header('Authorization');
 
-    return response()->json(['message' => 'User not authenticated'], 401);
+
+        if (!$authHeader || !str_starts_with($authHeader, 'Bearer ')) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+
+        $token = substr($authHeader, 7);
+
+        EmployerToken::where('token',$token)->delete();
+
+        return response()->json(['success'=> 'Log Out Has Successfuly'],200);
 }
+public function getEmployer(Request $request){
+    $id = EmployerToken::where('token',$request->token)->first()['employer_id'];
+    $employer = Employer::where('id',$id)->first();
+
+    return response()->json(['employer'=>$employer]);
+}
+
 }

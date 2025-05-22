@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('phone')->unique();
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('profile_image')->nullable()->default('/account/m3q1v66v.png');
             $table->timestamps();
         });
     }

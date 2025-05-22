@@ -5,17 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+
 class Employer extends Model
 {
-    use HasApiTokens,Notifiable;
+    use HasApiTokens, Notifiable;
     protected $fillable = [
         'company_name',
-            'phone',
-            'email',
-            'password',
+        'phone',
+        'email',
+        'password',
+        'profile_image'
     ];
     protected $hidden = ['email', 'password'];
     protected $casts = [
-        'password'=> 'hashed'
+        'password' => 'hashed'
     ];
 }

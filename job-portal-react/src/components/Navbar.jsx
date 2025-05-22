@@ -2,15 +2,23 @@ import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import ProfileDropdown from "./RepeatedElements/ProfileDropDown";
-import { useSelector } from "react-redux";
-import { TAKE_WHO } from "../Redux/SimpleWaytoReturnSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { TAKE_CANDIADTE, TAKE_EMPLOYER, TAKE_JOBS, TAKE_WHO } from "../Redux/SimpleWaytoReturnSlice";
+import {
+  getCandidate,
+  getEmployer,
+  getJobs,
+  getSanctumCsrf,
+} from "../Api/Apiconditions";
 
 function Navbar() {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === "ar";
   const [isShowed, setIsShowed] = useState(false);
   const who = useSelector(TAKE_WHO);
+  const jobs = useSelector(TAKE_JOBS);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const toggleLanguage = () => {
     const newLang = i18n.language === "fr" ? "ar" : "fr";
@@ -32,7 +40,32 @@ function Navbar() {
       navigate("/");
     }
   }, [who]);
+  useEffect(() => {
+    const callCandidate = async () => {
+      await getSanctumCsrf();
+      await getCandidate(dispatch);
+    };
+    const callEmployer = async () => {
+      await getSanctumCsrf();
+      await getEmployer(dispatch);
+    };
+    if (who == "candidate") {
+      callCandidate();
+      return;
+    }
+    if (who == "employer") {
+      callEmployer();
+    }
+  }, []);
 
+  useEffect(() => {
+    const callJobs = async () => {
+      await getJobs(dispatch);
+    };
+    if (jobs.length == 0) {
+      callJobs();
+    }
+  }, []);
   return (
     <nav
       className="fixed z-30 w-full bg-white shadow-lg"
@@ -183,9 +216,10 @@ function Navbar() {
 export default Navbar;
 
 function WhenCandidateConnect() {
+  const candidate = useSelector(TAKE_CANDIADTE);
   return (
     <>
-      <ProfileDropdown />
+      <ProfileDropdown name={candidate.first_name + ' ' + candidate.last_name} src={candidate['profile_image']}/>
 
       <Link
         to="/createresume"
@@ -197,9 +231,10 @@ function WhenCandidateConnect() {
   );
 }
 function WhenEmployerConnect() {
+  const employer = useSelector(TAKE_EMPLOYER);
   return (
     <>
-      <ProfileDropdown type="employer" />
+      <ProfileDropdown type="employer" src={employer['profile_image']} name={employer.company_name}/>
 
       <Link
         to="/postjob"
