@@ -27,11 +27,9 @@ function Jobs() {
   const pages = useMemo(() => {
     const arr = [];
     if (jobs.length <= 5) return [jobs];
-    jobs.slice(1, jobs.length).forEach((e, ind) => {
-      if ((ind + 1) % 5 == 0) {
-        arr.push(jobs.slice(ind - 5, ind + 1));
-      }
-    });
+    for (let i = 0; i < jobs.length; i += 5) {
+      arr.push(jobs.slice(i, i + 5));
+    }
     return arr;
   }, [jobs]);
   const [selectedFilters, setSelectedFilters] = useState({
@@ -43,6 +41,11 @@ function Jobs() {
   });
 
   const [filteredJobs, setFilteredJobs] = useState(pages[page - 1]);
+
+  useEffect(() => {
+    setFilteredJobs(pages[page - 1]);
+  },[page])
+
 
   useEffect(() => {
     let filtered = pages[page - 1];
@@ -67,7 +70,7 @@ function Jobs() {
           .includes(selectedFilters.location.toLowerCase())
       );
     }
-    if(selectedFilters.salary[1]){
+    if (selectedFilters.salary[1]) {
       filtered = filtered.filter((job) => {
         return (
           job.minSalary >= selectedFilters.salary[0] &&
@@ -85,10 +88,10 @@ function Jobs() {
     setFilteredJobs(filtered);
   }, [selectedFilters]);
 
-  useEffect(()=>{
-    setFilteredJobs(pages[page-1])
-  },[jobs])
-  // console.log(filteredJobs);
+  useEffect(() => {
+    setFilteredJobs(pages[page - 1]);
+  }, [jobs]);
+  console.log(pages);
   return (
     <div
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
@@ -253,27 +256,42 @@ function Jobs() {
           </div>
 
           {/* Pagination */}
-          {
-            filteredJobs.length > 0 ? <div className="mt-8 flex justify-center">
-            <nav className="flex items-center gap-2">
-              <button onClick={()=> setPage(p=> p-1)} className="px-4 py-2 border rounded-lg hover:bg-gray-50 transition duration-300">
-                {t("Pagination.Previous")}
-              </button>
-              {pages.map((e, i) => {
-                return (
-                  <>
-                    <button onClick={()=> setPage(i+1)} className={"px-4 py-2 rounded-lg " + (page == i+1 ? 'bg-primary text-white ' : ' border-3 border-primary')}>
-                      {i+1}
-                    </button>
-                  </>
-                );
-              })}
-              <button className="px-4 py-2 border rounded-lg hover:bg-gray-50 transition duration-300">
-                {t("Pagination.Next")}
-              </button>
-            </nav>
-          </div> : <h1 className="text-center text-2xl bg-white p-2 shadow-md rounded">There Is No Jobs</h1>
-          }
+          {filteredJobs.length > 0 ? (
+            <div className="mt-8 flex justify-center">
+              <nav className="flex items-center gap-2">
+                <button
+                  onClick={() => setPage((p) => p - 1)}
+                  className="px-4 py-2 border rounded-lg hover:bg-gray-50 transition duration-300"
+                >
+                  {t("Pagination.Previous")}
+                </button>
+                {pages.map((e, i) => {
+                  return (
+                    <>
+                      <button
+                        onClick={() => setPage(i + 1)}
+                        className={
+                          "px-4 py-2 rounded-lg " +
+                          (page == i + 1
+                            ? "bg-primary text-white "
+                            : " border-3 border-primary")
+                        }
+                      >
+                        {i + 1}
+                      </button>
+                    </>
+                  );
+                })}
+                <button className="px-4 py-2 border rounded-lg hover:bg-gray-50 transition duration-300">
+                  {t("Pagination.Next")}
+                </button>
+              </nav>
+            </div>
+          ) : (
+            <h1 className="text-center text-2xl bg-white p-2 shadow-md rounded">
+              There Is No Jobs
+            </h1>
+          )}
         </div>
       </div>
     </div>
