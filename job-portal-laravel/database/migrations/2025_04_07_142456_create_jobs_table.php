@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('company_name');
             $table->string('location');
-            $table->string('experience');
+            $table->string('experience')->default('debutant');
             $table->integer('minSalary')->nullable();
             $table->integer('maxSalary')->nullable();
             $table->string('jobType');

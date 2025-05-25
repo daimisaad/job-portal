@@ -29,14 +29,14 @@ function Jobs() {
     if (jobs.length <= 5) return [jobs];
     jobs.slice(1, jobs.length).forEach((e, ind) => {
       if ((ind + 1) % 5 == 0) {
-        arr.append(jobs.slice(ind - 5, ind + 1));
+        arr.push(jobs.slice(ind - 5, ind + 1));
       }
     });
     return arr;
   }, [jobs]);
   const [selectedFilters, setSelectedFilters] = useState({
     category: searchParams.get("category") || "",
-    type: "",
+    jobType: "",
     location: searchParams.get("location") || "",
     experience: "",
     salary: [minSalary, maxSalary],
@@ -88,7 +88,7 @@ function Jobs() {
   useEffect(()=>{
     setFilteredJobs(pages[page-1])
   },[jobs])
-  console.log(filteredJobs);
+  // console.log(filteredJobs);
   return (
     <div
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
@@ -136,19 +136,19 @@ function Jobs() {
               <div className="space-y-2">
                 {[
                   { key: "Full Time", label: t("filters.types.fullTime") },
-                  { key: "part Time", label: t("filters.types.partTime") },
-                  { key: "remote", label: t("filters.types.remote") },
-                  { key: "contract", label: t("filters.types.contract") },
+                  { key: "Part Time", label: t("filters.types.partTime") },
+                  { key: "Remote", label: t("filters.types.remote") },
+                  { key: "Freelance", label: t("filters.types.contract") },
                 ].map(({ key, label }) => (
                   <label key={key} className="flex items-center gap-2">
                     <input
                       type="checkbox"
-                      checked={selectedFilters.filters === key}
+                      checked={selectedFilters.jobType === key}
                       className="rounded border-gray-300 text-primary focus:ring-primary"
                       onChange={(e) =>
                         setSelectedFilters({
                           ...selectedFilters,
-                          type: e.target.checked ? key : "",
+                          jobType: e.target.checked ? key : "",
                         })
                       }
                     />
@@ -163,10 +163,10 @@ function Jobs() {
               <h3 className="font-medium mb-3">{t("filters.experience")}</h3>
               <div className="space-y-2">
                 {[
-                  { key: "Entry Level", label: t("filters.levels.entry") },
-                  { key: "Mid Level", label: t("filters.levels.mid") },
-                  { key: "Senior Level", label: t("filters.levels.senior") },
-                  { key: "Lead", label: t("filters.levels.lead") },
+                  { key: "debutant", label: t("filters.levels.entry") },
+                  { key: "intermediare", label: t("filters.levels.mid") },
+                  { key: "senior", label: t("filters.levels.senior") },
+                  { key: "lead", label: t("filters.levels.lead") },
                 ].map(({ key, label }) => (
                   <label key={key} className="flex items-center gap-2">
                     <input

@@ -19,6 +19,7 @@ class JobSeeder extends Seeder
             'company_name' => 'lujayna',
             'title' => fake()->title(),
             'location' => 'Rabat',
+            'experience' => 'intermediare',
             'minSalary' => fake()->numberBetween(2000, 20000),
             'maxSalary' => fake()->numberBetween(25000, 40000),
             'jobType' => 'Part Time',

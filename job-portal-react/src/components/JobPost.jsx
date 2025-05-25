@@ -225,25 +225,26 @@ export default function JobPostingForm() {
                   <p className="text-red-500 text-sm mt-1">{errors.location}</p>
                 )}
               </div>
-                <div>
-                  <label htmlFor="experience" className="block text-gray-700 mb-2">
-                    Experiencee <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    id="experience"
-                    name="experience"
-                    value={formData.experience}
-      
-                    onChange={handleChange}
-                    className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  >
-                    <option value="debutant">Debutant</option>
-                    <option value="intermediare">Intermediare</option>
-                    <option value="senior">Senior</option>
-                    <option value="lead">Lead</option>
-                    
-                  </select>
-                </div>
+              <div>
+                <label
+                  htmlFor="experience"
+                  className="block text-gray-700 mb-2"
+                >
+                  Experiencee <span className="text-red-500">*</span>
+                </label>
+                <select
+                  id="experience"
+                  name="experience"
+                  value={formData.experience}
+                  onChange={handleChange}
+                  className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  <option value="debutant">Debutant</option>
+                  <option value="intermediare">Intermediare</option>
+                  <option value="senior">Senior</option>
+                  <option value="lead">Lead</option>
+                </select>
+              </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
@@ -291,7 +292,6 @@ export default function JobPostingForm() {
                     </p>
                   )}
                 </div>
-                
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -308,9 +308,8 @@ export default function JobPostingForm() {
                   >
                     <option value="Full Time">Temps plein</option>
                     <option value="Part Time">Temps partiel</option>
-                    <option value="Contract">Contrat</option>
+                    <option value="Remote">TeleTravail</option>
                     <option value="Freelance">Freelance</option>
-                    <option value="Internship">Stage</option>
                   </select>
                 </div>
 
